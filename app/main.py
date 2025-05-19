@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.routes import tts, voices
+from app.api.routes import tts, voices, voice_profiles
 from app.core.config import settings
 import uvicorn
 import logging
@@ -30,6 +30,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(tts.router, prefix="/api/v1", tags=["tts"])
+app.include_router(voice_profiles.router, prefix="/api/v1", tags=["voice_profiles"])
 app.include_router(voices.router, prefix="/api/v1", tags=["voices"])
 
 @app.get("/health")

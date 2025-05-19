@@ -9,3 +9,4 @@ PLAN.md
 # Exclude all .txt files except requirements.txt
 *.txt
 !requirements.txt
+user-data.sh
