@@ -19,6 +19,7 @@ A FastAPI service for text-to-speech synthesis using the F5-TTS model.
 - F5-TTS model weights
 
 ## Directory Structure
+
 ```python
 ├── app/
 │ ├── api/
@@ -34,25 +35,27 @@ A FastAPI service for text-to-speech synthesis using the F5-TTS model.
 └── docker-compose.yml
 ```
 
-
 ## Setup
 
 1. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-
 2. Download https://huggingface.co/SWivid/F5-TTS & Place model files:
+
    - Put `model_1200000.pt` in `weights/`
    - Put `F5TTS_Base_vocab.txt` in `weights/`
 
 3. Set up voice profiles:
+
 ```bash
 python scripts/setup_test_voice.py
 ```
 
 4. Verify setup:
+
 ```bash
 python scripts/verify_setup.py
 ```
@@ -60,18 +63,20 @@ python scripts/verify_setup.py
 ## Running the Service
 
 1. Start the service:
+
 ```bash
 docker-compose up --build
 ```
 
-
 2. Generate an authentication token:
+
 ```
 bash
 python scripts/generate_token.py
 ```
 
 3. Test the API:
+
 ```bash
 python scripts/test_api.py
 ```
@@ -83,10 +88,11 @@ python scripts/test_api.py
 - `POST /api/v1/tts/synthesize` - Generate speech from text
 
 ### TTS Request Format
+
 ```json
 {
-"text": "Text to convert to speech",
-"voice_profile": "bane"
+	"text": "Text to convert to speech",
+	"voice_profile": "bane"
 }
 ```
 
@@ -100,20 +106,21 @@ python scripts/test_api.py
 ## Development
 
 1. Create a Python virtual environment:
+
 ```bash
 python -m venv venv
 source venv/bin/activate # Linux/Mac
 venv\Scripts\activate # Windows
 ```
 
-
 2. Install development dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-
 3. Run tests:
+
 ```bash
 python -m pytest tests/
 ```
