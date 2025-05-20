@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
-from app.core.security import validate_token
+# from app.core.security import validate_token
 import os
 from app.core.config import settings
 import logging
@@ -8,7 +8,8 @@ router = APIRouter(prefix="/voices")
 logger = logging.getLogger(__name__)
 
 @router.get("/list")
-async def list_voice_profiles(token: str = Depends(validate_token)):
+# async def list_voice_profiles(token: str = Depends(validate_token)):
+async def list_voice_profiles():
     """
     List available voice profiles
     """
