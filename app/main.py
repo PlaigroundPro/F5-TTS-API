@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+# from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import tts, voices, voice_profiles
 from app.core.config import settings
@@ -17,7 +17,7 @@ app = FastAPI(
 )
 
 # Security
-security = HTTPBearer()
+# security = HTTPBearer()
 
 # CORS middleware
 app.add_middleware(

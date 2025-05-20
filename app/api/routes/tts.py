@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import FileResponse
-from app.core.security import validate_token
+# from app.core.security import validate_token
 from app.api.models.tts import TTSRequest
 from app.services.tts_service import F5TTSService
 import logging
@@ -14,7 +14,7 @@ tts_service = None
 @router.post("/synthesize")
 async def synthesize_speech(
     request: TTSRequest,
-    token: str = Depends(validate_token)
+    # token: str = Depends(validate_token)
 ):
     """
     Synthesize speech from text using specified voice profile

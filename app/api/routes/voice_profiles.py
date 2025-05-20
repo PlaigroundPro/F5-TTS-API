@@ -4,7 +4,7 @@ from typing import List
 from pathlib import Path
 import shutil, os, logging
 
-from app.core.security import validate_token
+# from app.core.security import validate_token
 from app.core.config import settings   # provides VOICE_PROFILES_DIR (defaults to "voice_profiles")
 
 router = APIRouter(prefix="/voice_profiles", tags=["Voice Profiles"])
@@ -20,7 +20,7 @@ async def create_profile(
     audio: List[UploadFile] = File(..., description="*.wav files"),
     # matching phrases (same order as files)
     phrase: List[str] = Form(..., description="Text that matches each audio sample"),
-    token: str = Depends(validate_token)
+    # token: str = Depends(validate_token)
 ):
     """
     Create or overwrite a voice‑profile.\n
@@ -51,14 +51,16 @@ async def create_profile(
     return {"status": "ok", "profile": profile_name, "samples": len(audio)}
 
 @router.get("/")
-async def list_profiles(token: str = Depends(validate_token)):
+async def list_profiles():
+# async def list_profiles(token: str = Depends(validate_token)):
     """Return available profile names."""
     base = Path(settings.VOICE_PROFILES_DIR)
     profiles = [p.name for p in base.iterdir() if p.is_dir()]
     return {"profiles": profiles}
 
 @router.delete("/{profile_name}")
-async def delete_profile(profile_name: str, token: str = Depends(validate_token)):
+# async def delete_profile(profile_name: str, token: str = Depends(validate_token)):
+async def delete_profile(profile_name: str):
     """Remove a voice‑profile entirely (audio, samples, generated)."""
     root = _profile_root(profile_name)
     if not root.exists():
