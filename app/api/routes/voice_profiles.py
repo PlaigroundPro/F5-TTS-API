@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def _profile_root(name: str) -> Path:
     return Path(settings.VOICE_PROFILES_DIR) / name
 
-@router.post("/{profile_name}")
+@router.post("/create")
 async def create_profile(
     profile_name: str,
     # one or more audio files
@@ -50,7 +50,7 @@ async def create_profile(
     logger.info("Created voice‑profile %s with %d samples", profile_name, len(audio))
     return {"status": "ok", "profile": profile_name, "samples": len(audio)}
 
-@router.get("/")
+@router.get("/list")
 async def list_profiles():
 # async def list_profiles(token: str = Depends(validate_token)):
     """Return available profile names."""
@@ -58,12 +58,12 @@ async def list_profiles():
     profiles = [p.name for p in base.iterdir() if p.is_dir()]
     return {"profiles": profiles}
 
-@router.delete("/{profile_name}")
+@router.delete("/delete")
 # async def delete_profile(profile_name: str, token: str = Depends(validate_token)):
-async def delete_profile(profile_name: str):
+async def delete_profile(request):
     """Remove a voice‑profile entirely (audio, samples, generated)."""
-    root = _profile_root(profile_name)
+    root = _profile_root(request.profile_name)
     if not root.exists():
         raise HTTPException(status_code=404, detail="Profile not found")
     shutil.rmtree(root)
-    return {"deleted": profile_name}
+    return {"deleted": request.profile_name}
